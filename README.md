@@ -14,6 +14,8 @@ pip install -r requirements.txt
 
 Using a virtual environment is recommended so the pinned local computer-vision dependencies do not affect other Python projects.
 
+For Streamlit Community Cloud, `packages.txt` installs the Linux system libraries needed by OpenCV.
+
 ## Usage
 
 Start the Streamlit app:
