@@ -95,21 +95,22 @@ def get_eye_mouth_boxes(
     padding_pct: float,
 ) -> List[Box]:
     """Extract eye and mouth bounding boxes from a single face landmark set."""
-    landmark_groups = (
-        LEFT_EYE_LANDMARKS,
-        RIGHT_EYE_LANDMARKS,
-        MOUTH_LANDMARKS,
-    )
-
+    eye_band_indices = LEFT_EYE_LANDMARKS + RIGHT_EYE_LANDMARKS
     boxes = [
         _box_from_landmarks(
             landmarks=landmarks,
-            indices=indices,
+            indices=eye_band_indices,
             image_width=image_width,
             image_height=image_height,
             padding_pct=padding_pct,
-        )
-        for indices in landmark_groups
+        ),
+        _box_from_landmarks(
+            landmarks=landmarks,
+            indices=MOUTH_LANDMARKS,
+            image_width=image_width,
+            image_height=image_height,
+            padding_pct=padding_pct,
+        ),
     ]
 
     return [box for box in boxes if box[2] > 0 and box[3] > 0]
